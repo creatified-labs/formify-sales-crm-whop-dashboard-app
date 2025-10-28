@@ -9,7 +9,8 @@ export default async function ExperiencePage({
   const h = headers();
 
   try {
-    const result = await validateToken(h);
+    const headerObj = Object.fromEntries(h.entries());
+    const result = await validateToken({ headers: headerObj });
     const userId = (result as any)?.userId ?? null;
 
     if (!userId) {

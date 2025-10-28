@@ -5,7 +5,8 @@ import { validateToken } from "@whop-apps/sdk";
 export async function GET() {
   try {
     const h = headers();
-    const result = await validateToken(h);
+    const headerObj = Object.fromEntries(h.entries());
+    const result = await validateToken({ headers: headerObj });
     const userId = (result as any)?.userId ?? null;
 
     if (!userId) return new NextResponse("Unauthorized", { status: 401 });
